@@ -9,30 +9,78 @@ export function getRoutes() {
 
 export function getRoles() {
   return request({
-    url: '/vue-element-admin/roles',
+    url: '/getallrole',
     method: 'get'
   })
 }
 
-export function addRole(data) {
+export function getPermissions() {
   return request({
-    url: '/vue-element-admin/role',
+    url: '/getallpermission',
+    method: 'get'
+  })
+}
+
+export function getRolePermissions(roleId) {
+  return request({
+    url: '/getrolepermission',
+    method: 'get',
+    params: { roleId }
+  })
+}
+
+export function confirmRolePermission(data) {
+  return request({
+    url: '/confirmrolepermission',
     method: 'post',
     data
   })
 }
 
-export function updateRole(id, data) {
+export function addPermission(data) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
-    method: 'put',
+    url: '/addpermission',
+    method: 'post',
+    data
+  })
+}
+
+export function addRole(data) {
+  return request({
+    url: '/addrole',
+    method: 'post',
+    data
+  })
+}
+
+export function updateRole(data) {
+  return request({
+    url: `/updaterole`,
+    method: 'post',
+    data
+  })
+}
+
+export function updatePermission(data) {
+  return request({
+    url: `/updatepromission`,
+    method: 'post',
     data
   })
 }
 
 export function deleteRole(id) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
-    method: 'delete'
+    url: `/deleterole`,
+    method: 'get',
+    params: { id }
+  })
+}
+
+export function deletePermission(id) {
+  return request({
+    url: `/deletepermission`,
+    method: 'get',
+    params: { id }
   })
 }

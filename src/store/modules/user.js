@@ -5,6 +5,7 @@ import { Message } from 'element-ui'
 
 const state = {
   token: getToken(),
+  sacpid: '',
   name: '',
   avatar: '',
   introduction: '',
@@ -14,6 +15,9 @@ const state = {
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_SACPID: (state, sacpid) => {
+    state.sacpid = sacpid
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
@@ -29,8 +33,8 @@ const mutations = {
   }
 }
 
+// 用户登录
 const actions = {
-  // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -41,6 +45,7 @@ const actions = {
           duration: 5 * 1000
         })
         commit('SET_TOKEN', response.token)
+        commit('SET_SACPID', response.sacpId)
         setToken(response.token)
         resolve()
       }).catch(error => {
@@ -49,22 +54,22 @@ const actions = {
     })
   },
 
-  // get user info
+  // 获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo(state.sacpid).then(response => {
         if (!response) {
           reject('账号验证失败，请重新登录！')
         }
-        const { result, name, avatar, introduction } = response
-        if (!result.roles || result.roles.length <= 0) {
+        const { roles, name, avatar, introduction } = response
+        if (!roles || roles.length <= 0) {
           reject('系统无法验证该账号的权限！')
         }
-        commit('SET_ROLES', result.roles)
+        commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
-        resolve(response.result.roles)
+        resolve(response.roles)
       }).catch(error => {
         reject(error)
       })

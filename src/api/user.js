@@ -8,11 +8,11 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo(sacpId) {
   return request({
     url: '/admininfo',
     method: 'get',
-    params: { token }
+    params: { sacpId }
   })
 }
 

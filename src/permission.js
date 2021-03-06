@@ -1,14 +1,14 @@
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
-import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/auth' // get token from cookie
+import NProgress from 'nprogress' // 进度条
+import 'nprogress/nprogress.css' // 进度条样式
+import { getToken } from '@/utils/auth' // 从cookie中获取token
 import getPageTitle from '@/utils/get-page-title'
 
-NProgress.configure({ showSpinner: false }) // NProgress Configuration
+NProgress.configure({ showSpinner: false }) // 进度条配置
 
-const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect'] // 不用重定向的URL白名单
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
@@ -17,14 +17,16 @@ router.beforeEach(async(to, from, next) => {
   // set page title
   document.title = getPageTitle(to.meta.title)
 
-  // determine whether the user has logged in
+  // 获取token，用于判断用户是否登录
   const hasToken = getToken()
 
+  // 如果登录
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
     } else {
+      // 判断是否保存了用户的角色信息
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles) {
         next()

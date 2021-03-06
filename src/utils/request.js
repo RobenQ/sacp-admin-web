@@ -42,21 +42,21 @@ service.interceptors.response.use(
             location.reload()
           })
         })
-      }
-
-      // 未登录
-      if (res.code === 301) {
+      } else if (res.code === 301) { // 未登录
         Message({
           message: res.message,
           type: 'error',
-          duration: 5 * 1000
+          duration: 3 * 1000
         })
-      }
-
-      // 账号不存在
-      if (res.code === 201) {
+      } else if (res.code === 201) { // 账号不存在
         Message({
           message: res.message,
+          type: 'error',
+          duration: 3 * 1000
+        })
+      } else {
+        Message({
+          message: '操作失败！',
           type: 'error',
           duration: 5 * 1000
         })
