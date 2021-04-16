@@ -1,6 +1,13 @@
 <template>
   <div class="dashboard-container">
     <component :is="currentRole" />
+    <div class="img-wrap">
+      <el-image
+        style="width: 500px; height: 400px"
+        src="http://sacp.moeneko.top/home"
+        :fit="fit"
+      />
+    </div>
   </div>
 </template>
 
@@ -29,3 +36,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.img-wrap{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #E3E3E3;
+}
+</style>

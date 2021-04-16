@@ -125,15 +125,15 @@ export const asyncRoutes = [
       {
         path: 'index',
         component: () => import('@/views/user-management/index'),
-        name: '账号管理',
-        meta: { title: '账号管理', roles: ['admin'] }
+        name: '禁言冻结',
+        meta: { title: '禁言冻结', roles: ['admin'] }
       },
       {
-        path: 'index',
-        component: () => import('@/views/user-management/index'),
-        name: '账号管理',
+        path: 'pwdReset',
+        component: () => import('@/views/user-management/pwdReset'),
+        name: '密码重置',
         meta: {
-          title: '账号管理',
+          title: '密码重置',
           roles: ['admin']
         }
       }
@@ -167,6 +167,39 @@ export const asyncRoutes = [
         name: '用户角色',
         meta: {
           title: '用户角色',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+
+  {
+    path: '/course',
+    component: Layout,
+    redirect: '/course/index',
+    alwaysShow: true, // will always show the root menu
+    name: '课程管理',
+    meta: {
+      title: '课程管理',
+      icon: 'language',
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/course/classify'),
+        name: '课程类别',
+        meta: {
+          title: '类别管理',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'course',
+        component: () => import('@/views/course/course'),
+        name: '课程信息',
+        meta: {
+          title: '课程信息',
           roles: ['admin']
         }
       }
@@ -348,42 +381,42 @@ export const asyncRoutes = [
     hidden: true
   },
 
-  {
-    path: '/theme',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'Theme', icon: 'theme' }
-      }
-    ]
-  },
+  // {
+  //   path: '/theme',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/theme/index'),
+  //       name: 'Theme',
+  //       meta: { title: 'Theme', icon: 'theme' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/clipboard',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/clipboard/index'),
-        name: 'ClipboardDemo',
-        meta: { title: 'Clipboard', icon: 'clipboard' }
-      }
-    ]
-  },
+  // {
+  //   path: '/clipboard',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/clipboard/index'),
+  //       name: 'ClipboardDemo',
+  //       meta: { title: 'Clipboard', icon: 'clipboard' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://github.com/PanJiaChen/vue-element-admin',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

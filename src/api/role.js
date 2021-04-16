@@ -84,3 +84,19 @@ export function deletePermission(id) {
     params: { id }
   })
 }
+
+export function getUserAndRole(data) {
+  return request({
+    url: `/getmemberandrole`,
+    method: 'post',
+    data
+  })
+}
+
+export function changeUserRole(data) {
+  return request({
+    url: `/changeuserrole`,
+    method: 'post',
+    data
+  })
+}

@@ -22,3 +22,18 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getAllMember() {
+  return request({
+    url: '/getAllMember',
+    method: 'get'
+  })
+}
+
+export function resetPwd(data) {
+  return request({
+    url: '/resetPwd',
+    method: 'post',
+    data
+  })
+}

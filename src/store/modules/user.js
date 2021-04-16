@@ -5,7 +5,7 @@ import { Message } from 'element-ui'
 
 const state = {
   token: getToken(),
-  sacpid: '',
+  sacpId: '',
   name: '',
   avatar: '',
   introduction: '',
@@ -16,8 +16,8 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_SACPID: (state, sacpid) => {
-    state.sacpid = sacpid
+  SET_SACPID: (state, sacpId) => {
+    state.sacpId = sacpId
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
@@ -57,17 +57,17 @@ const actions = {
   // 获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.sacpid).then(response => {
+      getInfo(state.sacpId).then(response => {
         if (!response) {
           reject('账号验证失败，请重新登录！')
         }
-        const { roles, name, avatar, introduction } = response
+        const { roles, name, introduction } = response
         if (!roles || roles.length <= 0) {
           reject('系统无法验证该账号的权限！')
         }
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_AVATAR', response.result.avatar)
         commit('SET_INTRODUCTION', introduction)
         resolve(response.roles)
       }).catch(error => {

@@ -5,8 +5,8 @@
         <el-form-item label="SACP_ID：">
           <el-input v-model="form.sacpId" clearable />
         </el-form-item>
-        <el-form-item label="角色ID：">
-          <el-input v-model="form.roleId" clearable />
+        <el-form-item label="昵称：">
+          <el-input v-model="form.nickName" clearable />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -39,9 +39,9 @@
           {{ scope.row.role.roleName }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作(默认密码：sacp111111)" align="center">
         <template slot-scope="scope">
-          <el-button type="primary" @click="changeRole(scope)">角色</el-button>
+          <el-button type="danger" @click="resetPwd(scope)">密码重置</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,13 +59,13 @@
 </template>
 
 <script>
-import { getUserAndRole, getRoles, changeUserRole } from '@/api/role'
+import { getUserAndRole } from '@/api/role'
 export default {
   data() {
     return {
       form: {
         sacpId: '',
-        roleId: ''
+        nickName: ''
       },
       dialogVisible: false,
       sacpId: undefined,
@@ -75,7 +75,7 @@ export default {
     }
   },
   created() {
-    this.onSubmit()
+    // this.onSubmit()
   },
   methods: {
     async onSubmit() {
@@ -88,15 +88,7 @@ export default {
       var res = await getUserAndRole(this.form)
       this.tableData = res.result
     },
-    async changeRole(scope) {
-      var res = await getRoles()
-      this.radioList = res.result
-      this.sacpId = scope.row.member.sacpId
-      this.radio = scope.row.role.id
-      this.dialogVisible = true
-    },
-    async sureRole() {
-      await changeUserRole({ sacpId: this.sacpId, roleId: this.radio })
+    async resetPwd() {
       this.$message({
         type: 'success',
         message: '修改成功！'
@@ -109,18 +101,18 @@ export default {
 </script>
 
 <style scoped>
-  .container{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  .form{
-    width: 100%;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+.form{
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 </style>
