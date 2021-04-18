@@ -39,33 +39,27 @@
           {{ scope.row.role.roleName }}
         </template>
       </el-table-column>
-      <el-table-column label="账号状态" align="center">
+      <el-table-column label="账号状态（100:正常|101:禁言|102:冻结）" align="center">
         <template slot-scope="scope">
           {{ scope.row.member.status }}
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button type="warning" @click="resetPwd(scope)">禁言</el-button>
-          <el-button type="danger" @click="resetPwd(scope)">冻结</el-button>
+          <el-button type="warning" @click="disallowPost(scope)">禁言</el-button>
+          <el-button type="danger" @click="disallowLogin(scope)">冻结</el-button>
+          <br>
+          <div style="margin-top: 5px" />
+          <el-button type="primary" @click="resetStatus(scope)">恢复正常</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <el-dialog :visible.sync="dialogVisible" title="修改用户角色">
-      <el-radio-group v-model="radio">
-        <el-radio v-for="(item) in radioList" :key="item.id" :label="item.id" border>{{ item.roleName }}</el-radio>
-      </el-radio-group>
-      <div style="text-align:right;">
-        <el-button type="danger" @click="dialogVisible=false">取消</el-button>
-        <el-button type="primary" @click="sureRole">确认</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getUserAndRole } from '@/api/role'
+import { getMemeberRoleInfo, disallowPost, disallowLogin, resetStatus } from '@/api/user'
+
 export default {
   data() {
     return {
@@ -88,19 +82,29 @@ export default {
       if (this.form.sacpId === '') {
         this.form.sacpId = undefined
       }
-      if (this.form.roleId === '') {
-        this.form.roleId = undefined
+      if (this.form.nickName === '') {
+        this.form.nickName = undefined
       }
-      var res = await getUserAndRole(this.form)
+      var res = await getMemeberRoleInfo(this.form)
       this.tableData = res.result
     },
-    async resetPwd() {
-      this.$message({
-        type: 'success',
-        message: '修改成功！'
-      })
+    async disallowPost(scope) {
+      const sacpid = scope.row.member.sacpId
+      await disallowPost({ sacpId: sacpid })
+      this.$message.success('禁言该用户成功！')
       this.onSubmit()
-      this.dialogVisible = false
+    },
+    async disallowLogin(scope) {
+      const sacpid = scope.row.member.sacpId
+      await disallowLogin({ sacpId: sacpid })
+      this.$message.success('冻结该用户成功！')
+      this.onSubmit()
+    },
+    async resetStatus(scope) {
+      const sacpid = scope.row.member.sacpId
+      await resetStatus({ sacpId: sacpid })
+      this.$message.success('该用户状态已恢复正常！')
+      this.onSubmit()
     }
   }
 }

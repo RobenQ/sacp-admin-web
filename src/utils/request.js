@@ -48,7 +48,13 @@ service.interceptors.response.use(
           type: 'error',
           duration: 3 * 1000
         })
-      } else if (res.code === 201) { // 账号不存在
+      } else if (res.code === 201) { // 账号或密码错误
+        Message({
+          message: res.message,
+          type: 'error',
+          duration: 3 * 1000
+        })
+      } else if (res.code === 202) { // 账号被冻结
         Message({
           message: res.message,
           type: 'error',

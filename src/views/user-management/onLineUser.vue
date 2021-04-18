@@ -21,27 +21,32 @@
     >
       <el-table-column label="SACP_ID" align="center">
         <template slot-scope="scope">
-          {{ scope.row.member.sacpId }}
+          {{ scope.row.sacpId }}
         </template>
       </el-table-column>
       <el-table-column label="用户昵称" width="180" align="center">
         <template slot-scope="scope">
-          {{ scope.row.member.nickName }}
+          {{ scope.row.nickName }}
         </template>
       </el-table-column>
-      <el-table-column label="角色ID" align="center">
+      <el-table-column label="登录IP" align="center">
         <template slot-scope="scope">
-          {{ scope.row.role.id }}
+          {{ scope.row.host }}
         </template>
       </el-table-column>
-      <el-table-column label="角色名称" align="center">
+      <el-table-column label="登陆时间" align="center">
         <template slot-scope="scope">
-          {{ scope.row.role.roleName }}
+          {{ scope.row.startTime }}
         </template>
       </el-table-column>
-      <el-table-column label="操作(默认密码：sacp111111)" align="center">
+      <el-table-column label="上次访问时间" align="center">
         <template slot-scope="scope">
-          <el-button type="danger" @click="resetPwd(scope)">密码重置</el-button>
+          {{ scope.row.lastAccessTime }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center">
+        <template slot-scope="scope">
+          <el-button type="danger" @click="offLineUser(scope)">强制下线</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -49,7 +54,7 @@
 </template>
 
 <script>
-import { getMemeberRoleInfo, resetPwd } from '@/api/user'
+import { getAllActiveUsers, offLineUser } from '@/api/user'
 
 export default {
   data() {
@@ -58,32 +63,33 @@ export default {
         sacpId: '',
         nickName: ''
       },
-      dialogVisible: false,
       sacpId: undefined,
-      radio: 1,
-      tableData: {},
-      radioList: []
+      tableData: {}
     }
   },
   created() {
-    // this.onSubmit()
+    this.init()
   },
   methods: {
+    async init() {
+      const res = await getAllActiveUsers()
+      this.tableData = res.result
+    },
     async onSubmit() {
       if (this.form.sacpId === '') {
         this.form.sacpId = undefined
       }
-      if (this.form.roleId === '') {
-        this.form.roleId = undefined
+      if (this.form.nickName === '') {
+        this.form.nickName = undefined
       }
-      var res = await getMemeberRoleInfo(this.form)
-      this.tableData = res.result
+      // var res = await getMemeberRoleInfo(this.form)
+      // this.tableData = res.result
     },
-    async resetPwd(scope) {
-      const sacpid = scope.row.member.sacpId
-      await resetPwd({ sacpId: sacpid })
-      this.$message.success('该用户密码重置成功！')
-      this.onSubmit()
+    async offLineUser(scope) {
+      const sessionid = scope.row.sessionId
+      await offLineUser({ sessionId: sessionid })
+      this.$message.success('该用户已被强制下线')
+      this.init()
     }
   }
 }

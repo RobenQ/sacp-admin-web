@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       title: 'SACP管理后台',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo: 'http://sacp.moeneko.top/%E6%97%A0%E6%A0%87%E9%A2%982%28%E5%B7%B2%E5%8E%BB%E5%BA%95%29.png'
     }
   }
 }
@@ -55,7 +56,7 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
+      width: 50px;
       height: 32px;
       vertical-align: middle;
       margin-right: 12px;
