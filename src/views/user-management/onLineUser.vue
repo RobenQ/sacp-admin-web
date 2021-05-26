@@ -64,7 +64,7 @@ export default {
         nickName: ''
       },
       sacpId: undefined,
-      tableData: {}
+      tableData: []
     }
   },
   created() {
@@ -78,12 +78,27 @@ export default {
     async onSubmit() {
       if (this.form.sacpId === '') {
         this.form.sacpId = undefined
+      } else {
+        for (var i = 0; i < this.tableData.length; i++) {
+          var res = this.tableData
+          if (res[i].sacpId !== this.form.sacpId) {
+            this.tableData.splice(i, 1)
+            return
+          }
+        }
       }
       if (this.form.nickName === '') {
         this.form.nickName = undefined
+      } else {
+        for (i = 0; i < this.tableData.length; i++) {
+          res = this.tableData
+          if (res[i].nickName !== this.form.nickName) {
+            this.tableData.splice(i, 1)
+            return
+          }
+        }
       }
-      // var res = await getMemeberRoleInfo(this.form)
-      // this.tableData = res.result
+      await this.init()
     },
     async offLineUser(scope) {
       const sessionid = scope.row.sessionId
