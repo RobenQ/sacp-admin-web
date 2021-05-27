@@ -30,3 +30,31 @@ export function getClassify(data) {
     data
   })
 }
+
+export function searchCourse(data) {
+  return request({
+    url: '/searchCourse',
+    method: 'post',
+    data
+  })
+}
+
+export function offLineCourse(data) {
+  return request({
+    url: '/offLineCourse',
+    method: 'post',
+    data: {
+      courseId: data
+    }
+  })
+}
+
+export function onLineCourse(data) {
+  return request({
+    url: '/onLineCourse',
+    method: 'post',
+    data: {
+      courseId: data
+    }
+  })
+}
