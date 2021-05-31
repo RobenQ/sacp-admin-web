@@ -34,12 +34,12 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="类别名称" width="180" align="center">
+      <el-table-column label="课程名称" width="180" align="center">
         <template slot-scope="scope">
           {{ scope.row.courseName }}
         </template>
       </el-table-column>
-      <el-table-column label="描述" align="center">
+      <el-table-column label="分类" align="center">
         <template slot-scope="scope">
           {{ scope.row.classifyName }}
         </template>

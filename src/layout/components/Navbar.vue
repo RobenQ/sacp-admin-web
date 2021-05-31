@@ -10,6 +10,7 @@
 
         <error-log class="errLog-container right-menu-item hover-effect" />
 
+        <!--全屏按钮-->
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
       </template>

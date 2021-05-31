@@ -39,6 +39,14 @@ export function searchCourse(data) {
   })
 }
 
+export function searchDiscussion(data) {
+  return request({
+    url: '/searchDiscussion',
+    method: 'post',
+    data
+  })
+}
+
 export function offLineCourse(data) {
   return request({
     url: '/offLineCourse',
@@ -49,12 +57,32 @@ export function offLineCourse(data) {
   })
 }
 
+export function offLineDiscussion(data) {
+  return request({
+    url: '/offLineDiscussion',
+    method: 'post',
+    data: {
+      discussionId: data
+    }
+  })
+}
+
 export function onLineCourse(data) {
   return request({
     url: '/onLineCourse',
     method: 'post',
     data: {
       courseId: data
+    }
+  })
+}
+
+export function onLineDiscussion(data) {
+  return request({
+    url: '/onLineDiscussion',
+    method: 'post',
+    data: {
+      discussionId: data
     }
   })
 }

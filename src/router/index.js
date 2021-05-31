@@ -211,6 +211,48 @@ export const asyncRoutes = [
           title: '课程信息',
           roles: ['admin']
         }
+      },
+      {
+        path: 'discussion',
+        component: () => import('@/views/course/discussion'),
+        name: '评价管理',
+        meta: {
+          title: '评价管理',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+
+  {
+    path: '/forum',
+    component: Layout,
+    redirect: '/forum/index',
+    alwaysShow: true, // will always show the root menu
+    name: '内容管理',
+    meta: {
+      title: '内容管理',
+      icon: 'message',
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/forum/index'),
+        name: '创作内容',
+        meta: {
+          title: '创作内容',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'course',
+        component: () => import('@/views/forum/index'),
+        name: '内容评论',
+        meta: {
+          title: '内容评论',
+          roles: ['admin']
+        }
       }
     ]
   },
