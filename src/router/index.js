@@ -247,7 +247,7 @@ export const asyncRoutes = [
       },
       {
         path: 'course',
-        component: () => import('@/views/forum/index'),
+        component: () => import('@/views/forum/discussion'),
         name: '内容评论',
         meta: {
           title: '内容评论',

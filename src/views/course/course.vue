@@ -44,6 +44,11 @@
           {{ scope.row.classifyName }}
         </template>
       </el-table-column>
+      <el-table-column label="课程版块ID" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.forumId }}
+        </template>
+      </el-table-column>
       <el-table-column label="创建时间" align="center">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
