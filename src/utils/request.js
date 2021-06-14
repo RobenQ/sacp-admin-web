@@ -60,6 +60,12 @@ service.interceptors.response.use(
           type: 'error',
           duration: 3 * 1000
         })
+      } else if (res.code === 204) { // 账户没有管理员权限
+        Message({
+          message: res.message,
+          type: 'error',
+          duration: 3 * 1000
+        })
       } else {
         Message({
           message: '操作失败！',
